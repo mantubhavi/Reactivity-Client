@@ -2,6 +2,7 @@ import { Grid } from "@mui/material"
 import type { Activity } from "../../../lib/types/index.d"
 import ActivityList from "./ActivityList"
 import ActivityDetails from "../details/ActivityDetails"
+import ActivityForm from "../form/ActivityForm"
 
 type Props = {
     activities: Activity[],
@@ -31,6 +32,8 @@ const ActivityDashboard = ({
                         cancelSelectActivity={cancelSelectActivity}
                     />
                 }
+
+                <ActivityForm />
             </Grid>
         </Grid>
     )
