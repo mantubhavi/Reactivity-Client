@@ -3,14 +3,19 @@ import type { Activity } from "../../../lib/types/index.d"
 import ActivityCard from "./ActivityCard"
 
 type Props = {
-    activities: Activity[]
+    activities: Activity[],
+    selectActivity: (id: string) => void
 }
 
-const ActivityList = ({ activities }: Props) => {
+const ActivityList = ({ activities, selectActivity }: Props) => {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {activities.map((activity) => (
-                <ActivityCard activity={activity} key={activity.id} />
+                <ActivityCard
+                    activity={activity}
+                    key={activity.id}
+                    selectActivity={selectActivity}
+                />
             ))}
         </Box>
     )

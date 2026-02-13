@@ -2,10 +2,11 @@ import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/m
 import type { Activity } from "../../../lib/types/index.d"
 
 type Props = {
-    activity: Activity
+    activity: Activity,
+    selectActivity: (id: string) => void
 }
 
-const ActivityCard = ({ activity }: Props) => {
+const ActivityCard = ({ activity, selectActivity }: Props) => {
     return (
         <Card sx={{ borderRadius: 3 }}>
             <CardContent>
@@ -17,7 +18,13 @@ const ActivityCard = ({ activity }: Props) => {
 
             <CardActions sx={{ display: "flex", justifyContent: "space-between", pb: 2 }}>
                 <Chip label={activity.category} variant="outlined" />
-                <Button size="medium" variant="contained">View</Button>
+                <Button
+                    size="medium"
+                    variant="contained"
+                    onClick={() => selectActivity(activity.id)}
+                >
+                    View
+                </Button>
             </CardActions>
         </Card>
     )

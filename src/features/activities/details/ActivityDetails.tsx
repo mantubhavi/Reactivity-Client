@@ -2,9 +2,10 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@
 import type { Activity } from "../../../lib/types/index.d"
 
 type Props = {
-    activity: Activity
+    activity: Activity,
+    cancelSelectActivity: () => void,
 }
-const ActivityDetails = ({ activity }: Props) => {
+const ActivityDetails = ({ activity, cancelSelectActivity }: Props) => {
     return (
         <Card sx={{ borderRadius: 2 }}>
             <CardMedia
@@ -20,7 +21,7 @@ const ActivityDetails = ({ activity }: Props) => {
 
             <CardActions>
                 <Button color="primary">Edit</Button>
-                <Button color="inherit">Cancel</Button>
+                <Button color="inherit" onClick={() => cancelSelectActivity()}>Cancel</Button>
             </CardActions>
         </Card>
     )

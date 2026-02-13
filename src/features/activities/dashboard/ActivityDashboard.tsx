@@ -4,17 +4,33 @@ import ActivityList from "./ActivityList"
 import ActivityDetails from "../details/ActivityDetails"
 
 type Props = {
-    activities: Activity[]
+    activities: Activity[],
+    selectActivity: (id: string) => void,
+    cancelSelectActivity: () => void,
+    selectedActivity?: Activity
 }
 
-const ActivityDashboard = ({ activities }: Props) => {
+const ActivityDashboard = ({
+    activities,
+    selectActivity,
+    cancelSelectActivity,
+    selectedActivity
+}: Props) => {
     return (
         <Grid container spacing={3}>
             <Grid size={7}>
-                <ActivityList activities={activities} />
+                <ActivityList
+                    activities={activities}
+                    selectActivity={selectActivity}
+                />
             </Grid>
             <Grid size={5}>
-                {activities[0] && <ActivityDetails activity={activities[0]} />}
+                {selectedActivity &&
+                    <ActivityDetails
+                        activity={selectedActivity}
+                        cancelSelectActivity={cancelSelectActivity}
+                    />
+                }
             </Grid>
         </Grid>
     )
