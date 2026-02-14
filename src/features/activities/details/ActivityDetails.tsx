@@ -4,8 +4,9 @@ import type { Activity } from "../../../lib/types/index.d"
 type Props = {
     activity: Activity,
     cancelSelectActivity: () => void,
+    openForm: (id: string) => void
 }
-const ActivityDetails = ({ activity, cancelSelectActivity }: Props) => {
+const ActivityDetails = ({ activity, cancelSelectActivity, openForm }: Props) => {
     return (
         <Card sx={{ borderRadius: 2 }}>
             <CardMedia
@@ -20,7 +21,7 @@ const ActivityDetails = ({ activity, cancelSelectActivity }: Props) => {
             </CardContent>
 
             <CardActions>
-                <Button color="primary">Edit</Button>
+                <Button color="primary" onClick={() => openForm(activity.id)}>Edit</Button>
                 <Button color="inherit" onClick={() => cancelSelectActivity()}>Cancel</Button>
             </CardActions>
         </Card>
