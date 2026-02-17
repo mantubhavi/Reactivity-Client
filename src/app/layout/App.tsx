@@ -1,31 +1,17 @@
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
-import axios from "axios";
 import { useState } from "react";
 import type { Activity } from "../../lib/types/index.d";
 import NavBar from "./NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
-import { useQuery } from "@tanstack/react-query";
+import useActivities from "../../lib/hooks/useActivities";
 
 function App() {
-  // const [activites, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
-
-  // useEffect(() => {
-  //   axios.get<Activity[]>("http://localhost:5003/api/activities")
-  //     .then((res) => setActivities(res.data));
-  // }, []);
-
-  const { data: activites, isPending } = useQuery({
-    queryKey: ["activities"],
-    queryFn: async () => {
-      const response = await axios.get<Activity[]>("http://localhost:5003/api/activities");
-      return response.data;
-    }
-  })
+  const { activities, isPending } = useActivities();
 
   const handleSelectActivity = (id: string) => {
-    setSelectedActivity(activites?.find(x => x.id === id));
+    setSelectedActivity(activities?.find(x => x.id === id));
   }
 
   const handleCancelSelectActivity = () => {
@@ -70,10 +56,10 @@ function App() {
 
       <Container maxWidth="xl" sx={{ mt: 3 }}>
 
-        {!activites || isPending ? (
+        {!activities || isPending ? (
           <Typography>Loading...</Typography>
         ) : (<ActivityDashboard
-          activities={activites}
+          activities={activities}
           selectActivity={handleSelectActivity}
           cancelSelectActivity={handleCancelSelectActivity}
           selectedActivity={selectedActivity}
