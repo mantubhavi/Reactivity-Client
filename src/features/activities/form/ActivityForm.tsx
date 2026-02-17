@@ -1,99 +1,89 @@
-import { Box, Button, Paper, TextField, Typography } from "@mui/material"
-import type { Activity } from "../../../lib/types/index.d"
-import type { SubmitEvent } from "react"
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import type { Activity } from "../../../lib/types/index.d";
+import type { SubmitEvent } from "react";
+import useActivities from "../../../lib/hooks/useActivities";
 
 type Props = {
-    activity?: Activity,
-    closeForm: () => void,
-    submitForm: (activity: Activity) => void
-}
-const ActivityForm = ({ activity, closeForm, submitForm }: Props) => {
+  activity?: Activity;
+  closeForm: () => void;
+};
+const ActivityForm = ({ activity, closeForm }: Props) => {
+  const { updateActivity } = useActivities();
 
-    const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const data: { [key: string]: FormDataEntryValue } = {};
-        formData.forEach((value, key) => {
-            data[key] = value
-        });
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-        if (activity) {
-            data.id = activity.id;
-        }
+    const formData = new FormData(event.currentTarget);
 
-        submitForm(data as unknown as Activity)
+    const data: { [key: string]: FormDataEntryValue } = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    if (activity) {
+      data.id = activity.id;
+      await updateActivity.mutateAsync(data as unknown as Activity);
     }
+  };
 
-    return (
-        <Paper sx={{ borderRadius: 3, padding: 3 }}>
+  return (
+    <Paper sx={{ borderRadius: 3, padding: 3 }}>
+      <Typography variant="h5" gutterBottom color="primary">
+        Create Activity
+      </Typography>
 
-            <Typography variant="h5" gutterBottom color="primary">Create Activity</Typography>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        display="flex"
+        flexDirection="column"
+        gap={3}
+      >
+        <TextField label="Title" name="title" defaultValue={activity?.title} />
 
-            <Box
-                component="form"
-                onSubmit={handleSubmit}
-                display="flex"
-                flexDirection="column"
-                gap={3}
-            >
+        <TextField
+          label="Description"
+          name="description"
+          multiline
+          rows={3}
+          defaultValue={activity?.description}
+        />
 
-                <TextField
-                    label="Title"
-                    name="title"
-                    defaultValue={activity?.title}
-                />
+        <TextField
+          label="Category"
+          name="category"
+          defaultValue={activity?.category}
+        />
 
-                <TextField
-                    label="Description"
-                    name="description"
-                    multiline
-                    rows={3}
-                    defaultValue={activity?.description}
-                />
+        <TextField
+          label="Date"
+          name="date"
+          type="date"
+          defaultValue={activity?.date}
+        />
 
-                <TextField
-                    label="Category"
-                    name="category"
-                    defaultValue={activity?.category}
-                />
+        <TextField label="City" name="city" defaultValue={activity?.city} />
 
-                <TextField
-                    label="Date"
-                    name="date"
-                    type="date"
-                    defaultValue={activity?.date}
-                />
+        <TextField label="Venue" name="venue" defaultValue={activity?.venue} />
 
-                <TextField
-                    label="City"
-                    name="city"
-                    defaultValue={activity?.city}
-                />
+        <Box display="flex" justifyContent="end" gap={3}>
+          <Button color="inherit" onClick={closeForm}>
+            Cancel
+          </Button>
 
-                <TextField
-                    label="Venue"
-                    name="venue"
-                    defaultValue={activity?.venue}
-                />
+          <Button
+            type="submit"
+            color="success"
+            variant="contained"
+            disabled={updateActivity.isPending}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Box>
+    </Paper>
+  );
+};
 
-                <Box display="flex" justifyContent="end" gap={3}>
-                    <Button
-                        color="inherit"
-                        onClick={closeForm}
-                    >
-                        Cancel
-                    </Button>
-
-                    <Button type="submit"
-                        color="success"
-                        variant="contained"
-                    >
-                        Submit
-                    </Button>
-                </Box>
-            </Box>
-        </Paper>
-    )
-}
-
-export default ActivityForm
+export default ActivityForm;
