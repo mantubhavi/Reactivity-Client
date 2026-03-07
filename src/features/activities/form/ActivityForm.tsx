@@ -24,6 +24,7 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity);
+      closeForm();
     }
   };
 
@@ -60,7 +61,11 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
           label="Date"
           name="date"
           type="date"
-          defaultValue={activity?.date}
+          defaultValue={
+            activity?.date
+              ? new Date(activity.date).toISOString().split("T")[0]
+              : new Date().toISOString().split("T")[0]
+          }
         />
 
         <TextField label="City" name="city" defaultValue={activity?.city} />
