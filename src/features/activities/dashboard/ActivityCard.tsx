@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import type { Activity } from "../../../lib/types/index.d";
 import useActivities from "../../../lib/hooks/useActivities";
+import { Link } from "react-router";
 
 type Props = {
   activity: Activity;
@@ -38,7 +39,7 @@ const ActivityCard = ({ activity }: Props) => {
       >
         <Chip label={activity.category} variant="outlined" />
         <Box display="flex" gap={3}>
-          <Button size="medium" variant="contained" onClick={() => {}}>
+          <Button size="medium" variant="contained" component={Link} to={`/activities/${activity.id}`}>
             View
           </Button>
 
