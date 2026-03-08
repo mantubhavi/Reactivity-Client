@@ -3,13 +3,9 @@ import type { Activity } from "../../../lib/types/index.d";
 import type { SubmitEvent } from "react";
 import useActivities from "../../../lib/hooks/useActivities";
 
-type Props = {
-  activity?: Activity;
-  closeForm: () => void;
-};
-
-const ActivityForm = ({ activity, closeForm }: Props) => {
+const ActivityForm = () => {
   const { updateActivity, createActivity } = useActivities();
+  const activity = {} as Activity;
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,10 +21,8 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity);
-      closeForm();
     } else {
       await createActivity.mutateAsync(data as unknown as Activity);
-      closeForm();
     }
   };
 
@@ -77,9 +71,7 @@ const ActivityForm = ({ activity, closeForm }: Props) => {
         <TextField label="Venue" name="venue" defaultValue={activity?.venue} />
 
         <Box display="flex" justifyContent="end" gap={3}>
-          <Button color="inherit" onClick={closeForm}>
-            Cancel
-          </Button>
+          <Button color="inherit">Cancel</Button>
 
           <Button
             type="submit"
