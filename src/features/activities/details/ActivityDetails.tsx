@@ -1,16 +1,12 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import { Link, useNavigate, useParams } from "react-router";
+import { Grid, Typography } from "@mui/material";
+import { useParams } from "react-router";
 import useActivities from "../../../lib/hooks/useActivities";
+import ActivityDetailsHeader from "./ActivityDetailsHeader";
+import ActivityDetailsInfo from "./ActivityDetailsInfo";
+import ActivityDetailsChat from "./ActivityDetailsChat";
+import ActivityDetailsSidebar from "./ActivityDetailsSidebar";
 
 const ActivityDetails = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { activity, isLoadingActivity } = useActivities(id);
 
@@ -23,30 +19,17 @@ const ActivityDetails = () => {
   }
 
   return (
-    <Card sx={{ borderRadius: 2 }}>
-      <CardMedia
-        component="img"
-        src={`/images/categoryImages/${activity.category}.jpg`}
-      />
+    <Grid container spacing={3}>
+      <Grid size={8}>
+        <ActivityDetailsHeader />
+        <ActivityDetailsInfo />
+        <ActivityDetailsChat />
+      </Grid>
 
-      <CardContent>
-        <Typography variant="h5">{activity.title}</Typography>
-        <Typography variant="subtitle1" fontWeight="light">
-          {activity.date}
-        </Typography>
-        <Typography variant="body1">{activity.description}</Typography>
-      </CardContent>
-
-      <CardActions>
-        <Button color="primary" component={Link} to={`/manage/${activity.id}`}>
-          Edit
-        </Button>
-
-        <Button color="inherit" onClick={() => navigate("/activities")}>
-          Cancel
-        </Button>
-      </CardActions>
-    </Card>
+      <Grid size={4}>
+        <ActivityDetailsSidebar />
+      </Grid>
+    </Grid>
   );
 };
 
