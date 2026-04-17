@@ -6,15 +6,20 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import type { Activity } from "../../../lib/types/index.d";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
+import useActivities from "../../../lib/hooks/useActivities";
 
 const ActivityDetails = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { activity, isLoadingActivity } = useActivities(id);
 
-  const activity = {} as Activity;
-  if (!activity) {
+  if (isLoadingActivity) {
     return <Typography>Loading...</Typography>;
+  }
+
+  if (!activity) {
+    return <Typography>Activity not found!</Typography>;
   }
 
   return (
