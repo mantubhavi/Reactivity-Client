@@ -41,7 +41,7 @@ const ActivityForm = () => {
   return (
     <Paper sx={{ borderRadius: 3, padding: 3 }}>
       <Typography variant="h5" gutterBottom color="primary">
-        Create Activity
+        {activity ? "Edit Activity" : "Create Activity"}
       </Typography>
 
       <Box
@@ -83,7 +83,14 @@ const ActivityForm = () => {
         <TextField label="Venue" name="venue" defaultValue={activity?.venue} />
 
         <Box display="flex" justifyContent="end" gap={3}>
-          <Button color="inherit">Cancel</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/activities");
+            }}
+          >
+            Cancel
+          </Button>
 
           <Button
             type="submit"
