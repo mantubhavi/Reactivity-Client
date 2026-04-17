@@ -38,11 +38,7 @@ const ActivityDetails = () => {
       </CardContent>
 
       <CardActions>
-        <Button
-          color="primary"
-          component={Link}
-          to={`/activities/${activity.id}`}
-        >
+        <Button color="primary" component={Link} to={`/manage/${activity.id}`}>
           Edit
         </Button>
 
