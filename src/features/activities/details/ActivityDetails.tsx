@@ -21,8 +21,8 @@ const ActivityDetails = () => {
   return (
     <Grid container spacing={3}>
       <Grid size={8}>
-        <ActivityDetailsHeader />
-        <ActivityDetailsInfo />
+        <ActivityDetailsHeader activity={activity} />
+        <ActivityDetailsInfo activity={activity} />
         <ActivityDetailsChat />
       </Grid>
 
