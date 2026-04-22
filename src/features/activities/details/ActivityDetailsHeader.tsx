@@ -1,6 +1,7 @@
 import { Card, Badge, CardMedia, Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router";
 import type { Activity } from "../../../lib/types/index.d";
+import { formatDate } from "../../../lib/util/util";
 
 type Props = {
   activity: Activity;
@@ -55,7 +56,9 @@ const ActivityDetailsHeader = ({ activity }: Props) => {
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
             {activity.title}
           </Typography>
-          <Typography variant="subtitle1">{activity.date}</Typography>
+          <Typography variant="subtitle1">
+            {formatDate(activity.date)}
+          </Typography>
           <Typography variant="subtitle2">
             Hosted by{" "}
             <Link
