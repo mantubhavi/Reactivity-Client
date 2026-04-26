@@ -38,6 +38,8 @@ const NavBar = () => {
               <MenuItemLink to="/activities">Activities</MenuItemLink>
 
               <MenuItemLink to="/create-activity">Create Activity</MenuItemLink>
+
+              <MenuItemLink to="/counter">Counter</MenuItemLink>
             </Box>
 
             <MenuItem>User Menu</MenuItem>

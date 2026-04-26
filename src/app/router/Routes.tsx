@@ -4,6 +4,7 @@ import HomePage from "../../features/home/HomePage";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
+import Counter from "../../features/counter/Counter";
 
 export const route = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const route = createBrowserRouter([
       {
         path: "manage/:id",
         element: <ActivityForm />,
+      },
+      {
+        path: "counter",
+        element: <Counter />,
       },
     ],
   },
