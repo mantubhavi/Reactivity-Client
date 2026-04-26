@@ -1,0 +1,17 @@
+import { makeAutoObservable } from "mobx";
+
+export default class UIStore {
+  isLoading = false;
+
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  isBusy() {
+    this.isLoading = true;
+  }
+
+  isIdel() {
+    this.isLoading = false;
+  }
+}
