@@ -1,4 +1,4 @@
-import { Typography, ButtonGroup, Button } from "@mui/material";
+import { Typography, ButtonGroup, Button, Alert } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import agent from "../../lib/api/agent";
@@ -41,19 +41,29 @@ export default function TestErrors() {
         <Button onClick={() => handleError("buggy/not-found")}>
           Not found
         </Button>
+
         <Button onClick={() => handleError("buggy/bad-request")}>
           Bad request
         </Button>
+
         <Button onClick={() => handleError("activities", "post")}>
           Validation error
         </Button>
+
         <Button onClick={() => handleError("buggy/server-error")}>
           Server error
         </Button>
+
         <Button onClick={() => handleError("buggy/unauthorised")}>
           Unauthorised
         </Button>
       </ButtonGroup>
+
+      {validationErrors.map((err, i) => (
+        <Alert key={i} severity="error">
+          {err}
+        </Alert>
+      ))}
     </>
   );
 }
