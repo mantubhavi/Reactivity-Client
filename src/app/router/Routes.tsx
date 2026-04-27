@@ -6,6 +6,7 @@ import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
 import Counter from "../../features/counter/Counter";
 import TestErrors from "../../features/errors/TestError";
+import NotFound from "../../features/errors/NotFound";
 
 export const route = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const route = createBrowserRouter([
       {
         path: "errors",
         element: <TestErrors />,
+      },
+      {
+        path: "not-found",
+        element: <NotFound />,
       },
     ],
   },
