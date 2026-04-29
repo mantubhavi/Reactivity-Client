@@ -32,13 +32,13 @@ agent.interceptors.response.use(
     switch (status) {
       case 400:
         if (data.errors) {
-          const modalStateError = [];
+          const modalStateErrors = [];
           for (const key in data.errors) {
             if (data.errors[key]) {
-              modalStateError.push(data.errors[key]);
+              modalStateErrors.push(data.errors[key]);
             }
           }
-          throw modalStateError.flat();
+          throw modalStateErrors.flat();
         } else {
           toast.error(data);
         }
@@ -50,7 +50,7 @@ agent.interceptors.response.use(
         route.navigate("/not-found");
         break;
       case 500:
-        toast.error("Server error");
+        route.navigate("/server-error", { state: { error: data } });
         break;
       default:
         break;
