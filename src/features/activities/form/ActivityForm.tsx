@@ -3,9 +3,22 @@ import useActivities from "../../../lib/hooks/useActivities";
 import { useNavigate, useParams } from "react-router";
 import { useForm, type FieldValues } from "react-hook-form";
 import { useEffect } from "react";
+import {
+  activitySchema,
+  type ActivitySchema,
+} from "../../../lib/scehmas/activityScehmans";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const ActivityForm = () => {
-  const { register, reset, handleSubmit } = useForm();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ActivitySchema>({
+    resolver: zodResolver(activitySchema),
+  });
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { updateActivity, createActivity, activity, isLoadingActivity } =
@@ -42,6 +55,8 @@ const ActivityForm = () => {
           label="Title"
           {...register("title")}
           defaultValue={activity?.title}
+          error={!!errors.title}
+          helperText={errors.title?.message}
         />
 
         <TextField
