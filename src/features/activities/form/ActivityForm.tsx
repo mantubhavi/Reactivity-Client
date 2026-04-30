@@ -16,6 +16,7 @@ const ActivityForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ActivitySchema>({
+    mode: "onTouched",
     resolver: zodResolver(activitySchema),
   });
 
@@ -65,12 +66,16 @@ const ActivityForm = () => {
           multiline
           rows={3}
           defaultValue={activity?.description}
+          error={!!errors.description}
+          helperText={errors.description?.message}
         />
 
         <TextField
           label="Category"
           {...register("category")}
           defaultValue={activity?.category}
+          error={!!errors.category}
+          helperText={errors.category?.message}
         />
 
         <TextField
@@ -82,18 +87,24 @@ const ActivityForm = () => {
               ? new Date(activity.date).toISOString().split("T")[0]
               : new Date().toISOString().split("T")[0]
           }
+          error={!!errors.date}
+          helperText={errors.date?.message}
         />
 
         <TextField
           label="City"
           {...register("city")}
           defaultValue={activity?.city}
+          error={!!errors.city}
+          helperText={errors.city?.message}
         />
 
         <TextField
           label="Venue"
           {...register("venue")}
           defaultValue={activity?.venue}
+          error={!!errors.venue}
+          helperText={errors.venue?.message}
         />
 
         <Box display="flex" justifyContent="end" gap={3}>
