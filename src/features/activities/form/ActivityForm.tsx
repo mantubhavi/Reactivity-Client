@@ -1,4 +1,4 @@
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import useActivities from "../../../lib/hooks/useActivities";
 import { useNavigate, useParams } from "react-router";
 import { useForm, type FieldValues } from "react-hook-form";
@@ -9,15 +9,11 @@ import {
 } from "../../../lib/scehmas/activityScehmans";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "../../../app/shared/component/TextInput";
+import SelectInput from "../../../app/shared/component/SelectInput";
+import { categoryOption } from "./categoryOptions";
 
 const ActivityForm = () => {
-  const {
-    register,
-    control,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ActivitySchema>({
+  const { control, reset, handleSubmit } = useForm<ActivitySchema>({
     mode: "onTouched",
     resolver: zodResolver(activitySchema),
   });
@@ -64,7 +60,13 @@ const ActivityForm = () => {
           rows={3}
         />
 
-        <TextInput label="Category" control={control} name="category" />
+        <SelectInput
+          items={categoryOption }
+          label="Category"
+          control={control}
+          name="category"
+        />
+
         <TextInput label="Date" control={control} name="date" />
         <TextInput label="City" control={control} name="city" />
         <TextInput label="Venue" control={control} name="venue" />
