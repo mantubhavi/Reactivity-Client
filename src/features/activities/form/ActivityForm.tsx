@@ -8,10 +8,12 @@ import {
   type ActivitySchema,
 } from "../../../lib/scehmas/activityScehmans";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TextInput from "../../../app/shared/component/TextInput";
 
 const ActivityForm = () => {
   const {
     register,
+    control,
     reset,
     handleSubmit,
     formState: { errors },
@@ -52,60 +54,20 @@ const ActivityForm = () => {
         flexDirection="column"
         gap={3}
       >
-        <TextField
-          label="Title"
-          {...register("title")}
-          defaultValue={activity?.title}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+        <TextInput label="Title" control={control} name="title" />
 
-        <TextField
+        <TextInput
           label="Description"
-          {...register("description")}
+          control={control}
+          name="description"
           multiline
           rows={3}
-          defaultValue={activity?.description}
-          error={!!errors.description}
-          helperText={errors.description?.message}
         />
 
-        <TextField
-          label="Category"
-          {...register("category")}
-          defaultValue={activity?.category}
-          error={!!errors.category}
-          helperText={errors.category?.message}
-        />
-
-        <TextField
-          label="Date"
-          {...register("date")}
-          type="date"
-          defaultValue={
-            activity?.date
-              ? new Date(activity.date).toISOString().split("T")[0]
-              : new Date().toISOString().split("T")[0]
-          }
-          error={!!errors.date}
-          helperText={errors.date?.message}
-        />
-
-        <TextField
-          label="City"
-          {...register("city")}
-          defaultValue={activity?.city}
-          error={!!errors.city}
-          helperText={errors.city?.message}
-        />
-
-        <TextField
-          label="Venue"
-          {...register("venue")}
-          defaultValue={activity?.venue}
-          error={!!errors.venue}
-          helperText={errors.venue?.message}
-        />
+        <TextInput label="Category" control={control} name="category" />
+        <TextInput label="Date" control={control} name="date" />
+        <TextInput label="City" control={control} name="city" />
+        <TextInput label="Venue" control={control} name="venue" />
 
         <Box display="flex" justifyContent="end" gap={3}>
           <Button
