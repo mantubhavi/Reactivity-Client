@@ -30,8 +30,29 @@ const ActivityForm = () => {
     }
   }, [activity, reset]);
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    const { ...rest } = data;
+    const flattenedData = {
+      ...rest,
+      latitude: 12.9716,
+      longitude: 77.5946,
+    };
+    try {
+      if (activity) {
+        updateActivity.mutate(
+          { ...activity, ...flattenedData },
+          {
+            onSuccess: () => navigate(`/activities/${activity.id}`),
+          },
+        );
+      } else {
+        createActivity.mutate(flattenedData, {
+          onSuccess: (id) => navigate(`/activities/${id}`),
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (isLoadingActivity) {
@@ -61,14 +82,16 @@ const ActivityForm = () => {
           rows={3}
         />
 
-        <SelectInput
-          items={categoryOption}
-          label="Category"
-          control={control}
-          name="category"
-        />
+        <Box display="flex" gap={3}>
+          <SelectInput
+            items={categoryOption}
+            label="Category"
+            control={control}
+            name="category"
+          />
 
-        <DateTimeInput label="Date" control={control} name="date" />
+          <DateTimeInput label="Date" control={control} name="date" />
+        </Box>
 
         <TextInput label="City" control={control} name="city" />
         <TextInput label="Venue" control={control} name="venue" />
